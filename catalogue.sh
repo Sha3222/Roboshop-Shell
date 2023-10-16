@@ -20,6 +20,3 @@ mongo --host mongodb.sreddy.online </app/schema/catalogue.js
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
-
-
-
