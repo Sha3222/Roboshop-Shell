@@ -18,7 +18,7 @@ cd /app
 npm install
 echo -e "\e[34m<<<<<insatlling mongod>>>>>>>>>>>>>>>>>>>\e[0m"
 yum install mongodb-org-shell -y
-echo -e "\e[34m<<<<loading schema>>>"
+echo -e "\e[34m<<<<loading schema>>>>>>>\e[0m"
 mongo --host mongodb.sreddy.online </app/schema/catalogue.js
 echo -e "\e[34m<<<<starting the catlogue service>>>>>>>>>>>>>>>>>>>\e[0m"
 systemctl daemon-reload
