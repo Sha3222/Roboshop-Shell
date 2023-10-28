@@ -53,7 +53,7 @@ catalogue () {
   echo -e "\e[34m<<<<<insatlling mongod>>>>>>>>>>>>>>>>>>>\e[0m"
   yum install mongodb-org-shell -y &>>/tmp/robofile.log
   echo -e "\e[34m<<<<loading schema>>>>>>>\e[0m"
-  mongo --host mongodb.sreddy.online </app/schema/catalogue.js &>>/tmp/robofile.log
+  mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>>/tmp/robofile.log
   echo -e "\e[34m<<<<starting the catlogue service>>>>>>>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload &>>/tmp/robofile.log
   systemctl enable ${varible} &>>/tmp/robofile.log
