@@ -29,9 +29,9 @@ Node_js () {
   systemctl restart ${varible} &>> /tmp/robofile.log
 }
 
-catalogue () {
+Catalogue () {
   echo -e "\e[34m<<<<Creating the Catalogue service>>>>>>>>>>>>\e[0m"
-  cp ${varible}Service /etc/systemd/system/${varible}.service &>>/tmp/robofile.log
+  cp ${varible}Service /etc/systemd/system/${varible}.service
   echo -e "\e[34m<<<<copying Mongodb repo file>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo &>>/tmp/robofile.log
   echo -e "\e[34m<<<<<<<installing Nodejs>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -53,7 +53,7 @@ catalogue () {
   echo -e "\e[34m<<<<<insatlling mongod>>>>>>>>>>>>>>>>>>>\e[0m"
   yum install mongodb-org-shell -y &>>/tmp/robofile.log
   echo -e "\e[34m<<<<loading schema>>>>>>>\e[0m"
-  mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>>/tmp/robofile.log
+  mongo --host mongodb.sreddy.online </app/schema/${variable}.js  &>>/tmp/robofile.log
   echo -e "\e[34m<<<<starting the catlogue service>>>>>>>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload &>>/tmp/robofile.log
   systemctl enable ${varible} &>>/tmp/robofile.log
