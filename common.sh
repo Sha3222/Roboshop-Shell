@@ -1,6 +1,6 @@
 Node_js () {
   echo -e "\e[34m >>>>>>>>>>>>>>>>>>Creating User Services>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  cp userservice /etc/systemd/system/user.service &>> /tmp/robofile.log
+  cp ${varible} /etc/systemd/system/${varible}.service &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo
   echo -e "\e[34m >>>>>>>>>>>>>Installation Node JS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -13,10 +13,10 @@ Node_js () {
   echo -e "\e[34m >>>>>>>>>>>>>Creating App Directory>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   mkdir /app
   echo -e "\e[34m >>>>>>>>>>>>>Downloading the Application Content>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
+  curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
   echo -e "\e[34m >>>>>>>>>>>>>Extracting the Application File>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app
-  unzip /tmp/user.zip
+  unzip /tmp/${varible}.zip
   echo -e "\e[34m >>>>>>>>>>>>>Mongodb dependencies>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app
   npm install
@@ -25,6 +25,6 @@ Node_js () {
   mongo --host mongodb.sreddy.online </app/schema/user.js
   echo -e "\e[34m >>>>>>>>>>>>>Start User Service>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload
-  systemctl enable user
-  systemctl restart user
+  systemctl enable ${varible}
+  systemctl restart ${varible}
 }
