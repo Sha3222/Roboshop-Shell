@@ -13,18 +13,18 @@ Node_js () {
   echo -e "\e[34m >>>>>>>>>>>>>Creating App Directory>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   mkdir /app
   echo -e "\e[34m >>>>>>>>>>>>>Downloading the Application Content>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
+  curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Extracting the Application File>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app
-  unzip /tmp/${varible}.zip
+  unzip /tmp/${varible}.zip &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Mongodb dependencies>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app
-  npm install
+  npm install &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  dnf install mongodb-org-shell -y
-  mongo --host mongodb.sreddy.online </app/schema/user.js
+  dnf install mongodb-org-shell -y &>> /tmp/robofile.log
+  mongo --host mongodb.sreddy.online </app/schema/user.js &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Start User Service>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  systemctl daemon-reload
-  systemctl enable ${varible}
-  systemctl restart ${varible}
+  systemctl daemon-reload &>> /tmp/robofile.log
+  systemctl enable ${varible} &>> /tmp/robofile.log
+  systemctl restart ${varible} &>> /tmp/robofile.log
 }
