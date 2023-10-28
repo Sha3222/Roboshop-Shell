@@ -22,7 +22,7 @@ Node_js () {
   npm install &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   dnf install mongodb-org-shell -y &>> /tmp/robofile.log
-  mongo --host mongodb.sreddy.online </app/schema/user.js &>> /tmp/robofile.log
+  mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>> /tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Start User Service>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload &>> /tmp/robofile.log
   systemctl enable ${varible} &>> /tmp/robofile.log
