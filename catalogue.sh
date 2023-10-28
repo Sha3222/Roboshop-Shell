@@ -1,3 +1,3 @@
 variable=catalogue
-source catalogue.sh
+source common.sh
 catalogue

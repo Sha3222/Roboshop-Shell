@@ -43,9 +43,11 @@ catalogue () {
   rm -rf /app &>/tmp/robofile.log
   echo -e "\e[34m<<<<creating app directory>>>>>>>>>>>>>>>>>>>>>\e[0m"
   mkdir /app &>>/tmp/robofile.log
+  echo -e "\e[34m<<<<Downloading Application Content>>>>>>>>>>>>>>>>>>>>>\e[0m"
   curl -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/${varible}.zip &>/tmp/robofile.log
+  echo -e "\e[34m<<<<Extracting application content>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app &>/tmp/robofile.log
-  unzip /tmp/catalogue.zip &>>/tmp/robofile.log
+  unzip /tmp/${varible}.zip &>>/tmp/robofile.log
   cd /app &>>/tmp/robofile.log
   npm install &>>/tmp/robofile.log
   echo -e "\e[34m<<<<<insatlling mongod>>>>>>>>>>>>>>>>>>>\e[0m"
