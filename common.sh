@@ -1,3 +1,5 @@
+
+log=/tmp/robofile.log
 Node_js () {
   echo -e "\e[34m >>>>>>>>>>>>>>>>>>Creating User Services>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cp ${varible} /etc/systemd/system/${varible}.service &>> /tmp/robofile.log
@@ -58,4 +60,34 @@ Catalogue () {
   systemctl daemon-reload &>>/tmp/robofile.log
   systemctl enable ${variable} &>>/tmp/robofile.log
   systemctl start ${variable} &>>/tmp/robofile.log
+}
+
+java_shipping () {
+  echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
+  cp shippingservice /etc/systemd/system/shipping.service
+  echo -e "\e[34m<<<<Mysql repo>>>>>>>>>>>>\e[0m"
+  cp sqlrepo /etc/yum.repos.d/mysql.repo
+  echo -e "\e[34m<<<<Installing Mavan>>>>>>>>>>>>\e[0m"
+  yum install maven -y
+  echo -e "\e[34m<<<< Adding roboshop>>>>>>>>>>>>\e[0m"
+  useradd roboshop
+  echo -e "\e[34m<<<<Cleaning the App directory>>>>>>>>>>>>\e[0m"
+  rm -rf /app
+  echo -e "\e[34m<<<<Creating the App Directory>>>>>>>>>>>>\e[0m"
+  mkdir /app
+  echo -e "\e[34m<<<<Downloading the Application content>>>>>>>>>>>>\e[0m"
+  curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
+  cd /app
+  echo -e "\e[34m<<<<Extracting the file>>>>>>>>>>>>\e[0m"
+  unzip /tmp/shipping.zip
+  cd /app
+  mvn clean package
+  mv target/shipping-1.0.jar shipping.jar
+  echo -e "\e[34m<<<<Loading the Sql Schema>>>>>>>>>>>>\e[0m"
+  yum install mysql -y
+  mysql -h mysql.sreddy.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+
+  echo -e "\e[34m<<<<Starting the service>>>>>>>>>>>>\e[0m"
+  systemctl enable shipping
+  systemctl restart shipping
 }
