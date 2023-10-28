@@ -31,7 +31,8 @@ Node_js () {
 
 Catalogue () {
   echo -e "\e[34m<<<<Creating the Catalogue service>>>>>>>>>>>>\e[0m"
-  cp catalogueService /etc/systemd/system/${varible}.service
+  cp ${varible}Service /etc/systemd/system/${varible}.service
+  echo $?
   echo -e "\e[34m<<<<copying Mongodb repo file>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo &>>/tmp/robofile.log
   echo -e "\e[34m<<<<<<<installing Nodejs>>>>>>>>>>>>>>>>>>>>>\e[0m"
