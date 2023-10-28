@@ -30,9 +30,8 @@ Node_js () {
 }
 
 Catalogue () {
-  echo -e "\e[34m<<<<Creating the Catalogue service>>>>>>>>>>>>\e[0m"
-  cp ${varible}Service /etc/systemd/system/${varible}.service
-  echo $?
+  echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
+  cp ${variable}Service /etc/systemd/system/${variable}.service
   echo -e "\e[34m<<<<copying Mongodb repo file>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo &>>/tmp/robofile.log
   echo -e "\e[34m<<<<<<<installing Nodejs>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -45,7 +44,7 @@ Catalogue () {
   echo -e "\e[34m<<<<creating app directory>>>>>>>>>>>>>>>>>>>>>\e[0m"
   mkdir /app &>>/tmp/robofile.log
   echo -e "\e[34m<<<<Downloading Application Content>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  curl -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/${varible}.zip &>/tmp/robofile.log
+  curl -o /tmp/${variable}.zip https://roboshop-artifacts.s3.amazonaws.com/${variable}.zip &>/tmp/robofile.log
   echo -e "\e[34m<<<<Extracting application content>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cd /app &>/tmp/robofile.log
   unzip /tmp/${varible}.zip &>>/tmp/robofile.log
@@ -57,6 +56,6 @@ Catalogue () {
   mongo --host mongodb.sreddy.online </app/schema/${variable}.js  &>>/tmp/robofile.log
   echo -e "\e[34m<<<<starting the catlogue service>>>>>>>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload &>>/tmp/robofile.log
-  systemctl enable ${varible} &>>/tmp/robofile.log
-  systemctl start ${varible} &>>/tmp/robofile.log
+  systemctl enable ${variable} &>>/tmp/robofile.log
+  systemctl start ${variable} &>>/tmp/robofile.log
 }
