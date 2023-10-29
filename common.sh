@@ -81,7 +81,9 @@ java_shipping () {
 
   echo -e "\e[34m<<<<Installing Mavan>>>>>>>>>>>>\e[0m"
   yum install maven -y &>>${log}
+
   App_prerequest_function
+
   mvn clean package
   mv target/${variable}-1.0.jar ${variable}.jar &>>${log}
 
