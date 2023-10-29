@@ -120,3 +120,16 @@ python_payment () {
   systemd_function
 }
 
+dispatch_fun () {
+  log=/tmp/robofile.log
+  echo -e "\e[34m<<<<Go Installation>>>>>>>>>>>>\e[0m"
+  yum install golang -y &>>${log}
+
+  App_prerequest_function
+
+  go mod init dispatch
+  go get &>>${log}
+  go build &>>${log}
+
+  systemd_function
+}
