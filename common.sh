@@ -1,5 +1,7 @@
 log=/tmp/robofile.log
 App_prerequest_function () {
+    echo -e "\e[34m<<<<Creating ${variable} service>>>>>>>>>>>>\e[0m"
+    cp Service /etc/systemd/system/payment.service &>>${log}
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     useradd roboshop
 
@@ -26,9 +28,6 @@ systemd_function () {
   systemctl start ${variable} &>>${log}
 }
 Node_js () {
-  echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
-  cp ${variable}service /etc/systemd/system/${variable}.service &>>${log}
-
   echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo
 
@@ -72,8 +71,6 @@ Catalogue () {
 }
 
 java_shipping () {
-  echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
-  cp ${variable}service /etc/systemd/system/${variable}.service &>>${log}
 
   echo -e "\e[34m<<<<Mysql repo>>>>>>>>>>>>\e[0m"
   cp sqlrepo /etc/yum.repos.d/mysql.repo &>>${log}
@@ -93,5 +90,15 @@ java_shipping () {
   systemd_function
 
 }
+python_payment () {
 
+
+  App_prerequest_function
+
+  echo -e "\e[34m<<<<Building ${variable} service>>>>>>>>>>>>\e[0m"
+  yum install python36 gcc python3-devel -y &>>${log}
+  pip3.6 install -r requirements.txt &>>${log}
+
+  systemd_function
+}
 
