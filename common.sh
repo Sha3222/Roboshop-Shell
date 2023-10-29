@@ -28,10 +28,30 @@ systemd_function () {
   systemctl enable ${variable} &>>${log}
   systemctl start ${variable} &>>${log}
 }
+
+schema_fun () {
+  if [ "$schema_type" == mongodb ]
+  then
+    echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
+    dnf install mongodb-org-shell -y &>>${log}
+    mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>>${log}
+  fi
+
+  if [ "$schema_type" == mysql ]
+  then
+   echo -e "\e[34m<<<<Loading the Sql Schema>>>>>>>>>>>>\e[0m"
+   yum install mysql -y &>>${log}
+   mysql -h mysql.sreddy.online -uroot -pRoboShop@1 < /app/schema/${variable}.sql &>>${log}
+  fi
+
+}
 Node_js () {
   log=/tmp/robofile.log
-  echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  cp mongo.Repo /etc/yum.repos.d/mongo.repo
+  if [ ${variable} == user]
+  then
+    echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
+    cp mongo.Repo /etc/yum.repos.d/mongo.repo
+  fi
 
   echo -e "\e[34m >>>>>>>>>>>>>Installation Node JS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
@@ -42,9 +62,7 @@ Node_js () {
   cd /app
   npm install &>>${log}
 
-  echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-  dnf install mongodb-org-shell -y &>>${log}
-  mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>>${log}
+  schema_fun
 
   systemd_function
 
@@ -67,8 +85,7 @@ Catalogue () {
   echo -e "\e[34m<<<<<insatlling mongod>>>>>>>>>>>>>>>>>>>\e[0m"
   yum install mongodb-org-shell -y &>>${log}
 
-  echo -e "\e[34m<<<<loading schema>>>>>>>\e[0m"
-  mongo --host mongodb.sreddy.online </app/schema/${variable}.js  &>>${log}
+  schema_fun
 
   systemd_function
 }
@@ -86,9 +103,7 @@ java_shipping () {
   mvn clean package
   mv target/${variable}-1.0.jar ${variable}.jar &>>${log}
 
-  echo -e "\e[34m<<<<Loading the Sql Schema>>>>>>>>>>>>\e[0m"
-  yum install mysql -y &>>${log}
-  mysql -h mysql.sreddy.online -uroot -pRoboShop@1 < /app/schema/${variable}.sql &>>${log}
+  schema_fun
 
   systemd_function
 
