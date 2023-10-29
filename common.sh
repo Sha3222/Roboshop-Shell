@@ -10,7 +10,7 @@ exit_fun () {
 App_prerequest_function () {
     log=/tmp/robofile.log
     echo -e "\e[34m<<<<Creating ${variable} service>>>>>>>>>>>>\e[0m"
-    cp catalogueservice /etc/systemd/system/catalogue.service &>>${log}
+    cp ${variable}service /etc/systemd/system/${variable}.service &>>${log}
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -26,7 +26,7 @@ App_prerequest_function () {
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Downloading the Application Content>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-    curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/"${variable}".zip &>>${log}
+    curl -L -o /tmp/${variable}.zip https://roboshop-artifacts.s3.amazonaws.com/${variable}.zip &>>${log}
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Extracting the Application File>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -51,7 +51,7 @@ schema_fun () {
     echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     dnf install mongodb-org-shell -y &>>${log}
     exit_fun
-    mongo --host mongodb.sreddy.online < /app/schema/${varible}.js &>>${log}
+    mongo --host mongodb.sreddy.online </app/schema/${variable}.js &>>${log}
     exit_fun
   fi
 
@@ -59,7 +59,7 @@ schema_fun () {
   then
    echo -e "\e[34m<<<<Loading the Sql Schema>>>>>>>>>>>>\e[0m"
    yum install mysql -y &>>${log}
-   mysql -h mysql.sreddy.online -uroot -pRoboShop@1 < /app/schema/${variable}.sql &>>${log}
+   mysql -h mysql.sreddy.online -uroot -pRoboShop@1 </app/schema/${variable}.sql &>>${log}
    exit_fun
   fi
 
@@ -91,11 +91,6 @@ Node_js () {
 
 Catalogue () {
   log=/tmp/robofile.log
-
-  echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
-  cp ${variable}Service /etc/systemd/system/${variable}.service
-  exit_fun
-
   echo -e "\e[34m<<<<copying Mongodb repo file>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo &>>${log}
   exit_fun
