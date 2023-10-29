@@ -10,7 +10,7 @@ exit_fun () {
 App_prerequest_function () {
     log=/tmp/robofile.log
     echo -e "\e[34m<<<<Creating ${variable} service>>>>>>>>>>>>\e[0m"
-    cp ${variable}service /etc/systemd/system/${variable}.service &>>${log}
+    cp catalogueservice /etc/systemd/system/catalogue.service &>>${log}
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -26,7 +26,7 @@ App_prerequest_function () {
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Downloading the Application Content>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-    curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/${variable}.zip &>>${log}
+    curl -L -o /tmp/${varible}.zip https://roboshop-artifacts.s3.amazonaws.com/"${variable}".zip &>>${log}
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Extracting the Application File>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
