@@ -1,5 +1,4 @@
 log=/tmp/robofile.log
-
 App_prerequest_function () {
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     useradd roboshop
@@ -15,8 +14,8 @@ App_prerequest_function () {
 
     echo -e "\e[34m >>>>>>>>>>>>>Extracting the Application File>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     cd /app
-    unzip /tmp/${varible}.zip &>>${log}
-    cd /app &>>${log}
+    unzip /tmp/${varible}.zip &>>{log}
+    cd /app &>>{log}
 
 }
 
