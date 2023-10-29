@@ -1,5 +1,6 @@
 log=/tmp/robofile.log
 App_prerequest_function () {
+    log=/tmp/robofile.log
     echo -e "\e[34m<<<<Creating ${variable} service>>>>>>>>>>>>\e[0m"
     cp Service /etc/systemd/system/payment.service &>>${log}
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -28,6 +29,7 @@ systemd_function () {
   systemctl start ${variable} &>>${log}
 }
 Node_js () {
+  log=/tmp/robofile.log
   echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
   cp mongo.Repo /etc/yum.repos.d/mongo.repo
 
@@ -49,6 +51,7 @@ Node_js () {
 }
 
 Catalogue () {
+  log=/tmp/robofile.log
   echo -e "\e[34m<<<<Creating the ${variable}service>>>>>>>>>>>>\e[0m"
   cp ${variable}Service /etc/systemd/system/${variable}.service
   echo -e "\e[34m<<<<copying Mongodb repo file>>>>>>>>>>>>>\e[0m"
