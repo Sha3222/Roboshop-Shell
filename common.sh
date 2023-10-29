@@ -47,7 +47,7 @@ schema_fun () {
 }
 Node_js () {
   log=/tmp/robofile.log
-  if [ ${variable} == user]
+  if [ ${variable} == user ]
   then
     echo -e "\e[34m >>>>>>>>>>>>>Mongodb Repo file>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     cp mongo.Repo /etc/yum.repos.d/mongo.repo
