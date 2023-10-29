@@ -10,7 +10,7 @@ exit_fun () {
 App_prerequest_function () {
     log=/tmp/robofile.log
     echo -e "\e[34m<<<<Creating ${variable} service>>>>>>>>>>>>\e[0m"
-    cp Service /etc/systemd/system/payment.service &>>${log}
+    cp ${variable}service /etc/systemd/system/${variable}.service &>>${log}
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
