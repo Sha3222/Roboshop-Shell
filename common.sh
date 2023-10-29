@@ -51,7 +51,7 @@ schema_fun () {
     echo -e "\e[34m >>>>>>>>>>>>>Installation Mongodb Client>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
     dnf install mongodb-org-shell -y &>>${log}
     exit_fun
-    mongo --host mongodb.sreddy.online </app/schema/${varible}.js &>>${log}
+    mongo --host mongodb.sreddy.online </app/schema/"${varible}".js &>>${log}
     exit_fun
   fi
 
