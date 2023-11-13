@@ -14,7 +14,11 @@ App_prerequest_function () {
     exit_fun
 
     echo -e "\e[34m >>>>>>>>>>>>>Adding User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\e[0m"
-    useradd roboshop
+    id roboshop &>>${log}
+    if [ $? -ne 0 ]
+    then
+    useradd roboshop &>>${log}
+    fi
     exit_fun
 
     echo -e "\e[34m<<<<<<<<<<<<<<<<<removing app>>>>>>>>>>>>>>>>>>>>>>\e[0m"
@@ -138,6 +142,7 @@ python_payment () {
 
 
   App_prerequest_function
+  sed -i "s/rabbitmq_password/${rabbitmq_password}/" /etc/systemd/system/${varible}.service
 
   echo -e "\e[34m<<<<Building ${variable} service>>>>>>>>>>>>\e[0m"
   yum install python36 gcc python3-devel -y &>>${log}
