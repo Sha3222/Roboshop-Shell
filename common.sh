@@ -142,7 +142,7 @@ python_payment () {
 
 
   App_prerequest_function
-  sed -i "s/rabbitmq_password/${rabbitmq_password}/" /etc/systemd/system/${varible}.service
+  sed -i "s/rabbitmq_password/${rabbitmq_password}/" /etc/systemd/system/${variable}.service &>>${log}
 
   echo -e "\e[34m<<<<Building ${variable} service>>>>>>>>>>>>\e[0m"
   yum install python36 gcc python3-devel -y &>>${log}
